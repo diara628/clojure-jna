@@ -84,3 +84,23 @@ user=> (native-c/open "README")
 
 Enjoy!
 --Chouser
+
+
+-- Begin Berger's Section --
+Adding a lot of function in preparation to dynamically compile functions for CUDA-clojure mapping.
+user> (def fdef (create-jna-fn-def "add_floatNumber" Float Float Float))
+#'user/fdef
+user> (get-cpp-mangled-name fdef)
+"_ZN15add_floatNumberEff"
+user> fdef
+{:return-type java.lang.Float, :name "add_floatNumber", :arguments (java.lang.Float java.lang.Float)}
+
+(def fndef (create-namespaced-jna-fn-def ["test1" "test2"] "add_floatNumber" Float [:pointer Float] Integer))
+#'user/fndef
+
+(get-cpp-mangled-name fndef)
+"_ZN5test15test215add_floatNumberEPfi"
+user> fndef
+{:namespaces ["test1" "test2"], :return-type java.lang.Float, :name "add_floatNumber", :arguments ([:pointer java.lang.Float] java.lang.Integer)}
+
+-- End Berger's Section --
